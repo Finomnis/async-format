@@ -111,7 +111,7 @@ pub trait AsyncWriteTarget: Sized {
     fn flush(&mut self) -> impl core::future::Future<Output = Result<(), Self::Error>>;
     fn write(&mut self, buf: &[u8]) -> impl core::future::Future<Output = Result<(), Self::Error>>;
 
-    fn format_writer<'a, T: AsMut<[u8]>>(self, buf: &'a mut T) -> FormatWriter<'a, Self> {
+    fn into_format_writer<'a, T: AsMut<[u8]>>(self, buf: &'a mut T) -> FormatWriter<'a, Self> {
         FormatWriter {
             writer: self,
             buffer: buf.as_mut(),

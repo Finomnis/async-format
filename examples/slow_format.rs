@@ -1,12 +1,18 @@
 use std::{
     f64::consts::PI,
-    io::{Stdout, Write as _, stdout},
+    io::{Stdout, Write as _},
     time::Duration,
 };
 
 use async_format::{AsyncWriteTarget as _, awriteln};
 
 struct SlowWriter(Stdout);
+
+impl SlowWriter {
+    pub fn new() -> Self {
+        Self(std::io::stdout())
+    }
+}
 
 impl embedded_io_async::ErrorType for SlowWriter {
     type Error = std::io::Error;
@@ -28,8 +34,8 @@ impl embedded_io_async::Write for SlowWriter {
 #[tokio::main]
 async fn main() {
     let mut buf = [0u8; 8];
-
-    let mut writer = SlowWriter(stdout()).format_writer(&mut buf);
+    let writer = &mut SlowWriter::new();
+    let mut writer = writer.into_format_writer(&mut buf);
 
     awriteln!(
         writer,
