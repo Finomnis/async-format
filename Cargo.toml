@@ -1,0 +1,21 @@
+[package]
+name = "async-format"
+version = "0.0.1"
+edition = "2024"
+
+
+authors = ["Finomnis <finomnis@gmail.com>"]
+rust-version = "1.88"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/Finomnis/async-format"
+description = "Format into async streams"
+keywords = ["format", "embedded", "no-std", "async"]
+categories = ["no-std"]
+
+exclude = ["/.gitignore", "/.github/"]
+
+[dependencies]
+
+[package.metadata.docs.rs]
+all-features = true
